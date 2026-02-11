@@ -89,6 +89,7 @@ void main() {
       'workout_session_logs_v1',
       '[{"id":"w1","routineId":"quick_full_body","startTime":"2026-02-09T08:00:00.000","endTime":"2026-02-09T08:15:00.000","completedStepsCount":5,"skippedStepsCount":0,"totalMinutes":15,"intensity":"medium"}]',
     );
+    await prefs.setBool('onboarding_completed', true);
     await prefs.setString('app_theme_mode', 'dark');
     await prefs.setBool('daily_reminders_enabled', false);
     await prefs.setStringList('managed_notification_ids', <String>['123', '456']);
@@ -132,6 +133,7 @@ void main() {
     expect(keys.contains('managed_notification_ids'), isFalse);
     expect(keys.any((k) => k.startsWith('hydration_entries_')), isFalse);
     expect(keys.any((k) => k.startsWith('deep_work_entries_')), isFalse);
+    expect(prefs.getBool('onboarding_completed'), isTrue);
     expect(prefs.getBool('daily_reminders_enabled'), isTrue);
     expect(prefs.getString('app_theme_mode'), 'system');
   });

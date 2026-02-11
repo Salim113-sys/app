@@ -369,6 +369,7 @@ class _DataSectionState extends State<_DataSection> {
       for (final habitId in habitIds) {
         await notificationService.cancelHabitReminders(habitId);
       }
+      await notificationService.cancelHydrationReminders();
       await notificationService.cancelMovementReminders();
       await notificationService.cancelDeepWorkReminders();
 
@@ -384,6 +385,8 @@ class _DataSectionState extends State<_DataSection> {
         await deepWorkProvider.clearAllData();
       }
 
+      // Product intent: preserve onboarding_completed, reset app_theme_mode to
+      // system, and reset daily_reminders_enabled to true.
       // Explicit key removal for all reset domains.
       const keysToRemove = <String>[
         'habits',
