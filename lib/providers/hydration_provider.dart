@@ -11,6 +11,7 @@ class HydrationProvider extends ChangeNotifier {
   HydrationSettings _settings = const HydrationSettings();
   List<HydrationEntry> _todayEntries = const [];
   bool _initialized = false;
+  bool _isDisposed = false;
 
   HydrationProvider(this._repository, this._notificationService) {
     _bootstrap();
@@ -27,13 +28,16 @@ class HydrationProvider extends ChangeNotifier {
     try {
       _settings = await _repository.loadSettings();
       _repository.settingsStream.listen((value) {
+        if (_isDisposed) return;
         _settings = value;
         notifyListeners();
       });
       _repository.todayEntriesStream.listen((entries) {
+        if (_isDisposed) return;
         _todayEntries = entries;
         notifyListeners();
       });
+      if (_isDisposed) return;
       _initialized = true;
       notifyListeners();
     } catch (e) {
@@ -45,6 +49,7 @@ class HydrationProvider extends ChangeNotifier {
     await _repository.logDrink(amountMl, source: source);
     _todayEntries = List.from(_todayEntries)
       ..add(HydrationEntry(amountMl: amountMl, source: source));
+    if (_isDisposed) return;
     notifyListeners();
   }
 
@@ -60,6 +65,7 @@ class HydrationProvider extends ChangeNotifier {
     } else {
       await _notificationService.cancelHydrationReminders();
     }
+    if (_isDisposed) return;
     notifyListeners();
   }
 
@@ -80,9 +86,16 @@ class HydrationProvider extends ChangeNotifier {
       _settings = const HydrationSettings();
       _todayEntries = const [];
       _initialized = true;
+      if (_isDisposed) return;
       notifyListeners();
     } catch (e) {
       debugPrint('Error clearing hydration data: $e');
     }
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
   }
 }
