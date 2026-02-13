@@ -40,8 +40,23 @@ jobs:
       - name: flutter test
         run: flutter test
 
-      - name: flutter build apk
-        run: flutter build apk
+      - name: flutter build apk (release)
+        run: flutter build apk --release
+
+      - name: flutter build web (release)
+        run: flutter build web --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload web build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web
 
   ios_no_codesign:
     name: iOS no-codesign build (macos-latest)
