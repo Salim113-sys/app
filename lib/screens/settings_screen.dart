@@ -9,6 +9,7 @@ import 'package:daily_reset/providers/workout_provider.dart';
 import 'package:daily_reset/providers/movement_provider.dart';
 import 'package:daily_reset/providers/deep_work_provider.dart';
 import 'package:daily_reset/services/notification_service.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,99 +23,70 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
+        leading: const BackButton(),
         title: Text(
           'Settings',
           style: context.textStyles.headlineSmall?.semiBold,
         ),
         centerTitle: false,
       ),
-      body: ListView(
-        padding: AppSpacing.paddingLg,
-        children: [
-          _buildsectionHeader(context, 'Appearance'),
-          const SizedBox(height: AppSpacing.md),
-          const _ThemeSelector(),
-          const SizedBox(height: AppSpacing.xl),
-          _buildsectionHeader(context, 'Notifications'),
-          const SizedBox(height: AppSpacing.md),
-          const _NotificationSection(),
-          const SizedBox(height: AppSpacing.xl),
-          _buildsectionHeader(context, 'Data & Privacy'),
-          const SizedBox(height: AppSpacing.md),
-          const _DataSection(),
-          const SizedBox(height: AppSpacing.xl),
-          _buildsectionHeader(context, 'Premium Features'),
-          const SizedBox(height: AppSpacing.md),
-          Container(
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                  color:
-                      theme.colorScheme.outlineVariant.withValues(alpha: 0.3)),
-            ),
-            child: ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.timer_outlined,
-                    color: theme.colorScheme.primary),
+      body: SingleChildScrollView(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.md,
+                AppSpacing.sm,
+                AppSpacing.md,
+                AppSpacing.lg,
               ),
-              title: const Text('Focus Mode'),
-              subtitle: const Text('Start a deep work session'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => context.push('/focus'),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Container(
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                  color:
-                      theme.colorScheme.outlineVariant.withValues(alpha: 0.3)),
-            ),
-            child: ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.secondaryContainer,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.air, color: theme.colorScheme.secondary),
-              ),
-              title: const Text('Breathing Exercise'),
-              subtitle: const Text('4-4-4-4 Box Breathing'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => context.push('/breathing'),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.xxl),
-          Center(
-            child: Text(
-              'Daily Reset v1.0.0',
-              style: context.textStyles.labelMedium?.withColor(
-                theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const DRSectionHeader(
+                    title: 'Appearance',
+                    padding: EdgeInsets.zero,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  const _ThemeSelector(),
+                  const SizedBox(height: AppSpacing.sm),
+                  const DRSectionHeader(
+                    title: 'Notifications',
+                    padding: EdgeInsets.zero,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  const _NotificationSection(),
+                  const SizedBox(height: AppSpacing.sm),
+                  const DRSectionHeader(
+                    title: 'Premium Features',
+                    padding: EdgeInsets.zero,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  const _PremiumFeaturesSection(),
+                  const SizedBox(height: AppSpacing.sm),
+                  const DRSectionHeader(
+                    title: 'Data & Privacy',
+                    padding: EdgeInsets.zero,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  const _DataSection(),
+                  const SizedBox(height: AppSpacing.xxl),
+                  Center(
+                    child: Text(
+                      'Daily Reset v1.0.0',
+                      style: context.textStyles.labelMedium?.withColor(
+                        theme.colorScheme.onSurfaceVariant.withValues(
+                          alpha: 0.6,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                ],
               ),
             ),
           ),
-          const SizedBox(height: AppSpacing.xl),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildsectionHeader(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 4),
-      child: Text(
-        title,
-        style: context.textStyles.titleMedium?.bold.withColor(
-          Theme.of(context).colorScheme.primary,
         ),
       ),
     );
@@ -126,25 +98,28 @@ class _ThemeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          _buildThemeOption(context, 'Light', Icons.wb_sunny_rounded,
-              AppTheme.light, Colors.orange),
-          const SizedBox(width: 12),
-          _buildThemeOption(context, 'Dark', Icons.dark_mode_rounded,
-              AppTheme.dark, Colors.purple),
-          const SizedBox(width: 12),
-          _buildThemeOption(
-              context, 'Calm', Icons.spa_rounded, AppTheme.calm, Colors.teal),
-          const SizedBox(width: 12),
-          _buildThemeOption(context, 'Sunrise', Icons.wb_twilight_rounded,
-              AppTheme.sunrise, const Color(0xFFFF9F7F)),
-          const SizedBox(width: 12),
-          _buildThemeOption(context, 'Ocean', Icons.water_drop_rounded,
-              AppTheme.ocean, const Color(0xFF00B4D8)),
-        ],
+    return DRCard(
+      padding: AppSpacing.paddingSm,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            _buildThemeOption(context, 'Light', Icons.wb_sunny_rounded,
+                AppTheme.light, Colors.orange),
+            const SizedBox(width: 8),
+            _buildThemeOption(context, 'Dark', Icons.dark_mode_rounded,
+                AppTheme.dark, Colors.purple),
+            const SizedBox(width: 8),
+            _buildThemeOption(
+                context, 'Calm', Icons.spa_rounded, AppTheme.calm, Colors.teal),
+            const SizedBox(width: 8),
+            _buildThemeOption(context, 'Sunrise', Icons.wb_twilight_rounded,
+                AppTheme.sunrise, const Color(0xFFFF9F7F)),
+            const SizedBox(width: 8),
+            _buildThemeOption(context, 'Ocean', Icons.water_drop_rounded,
+                AppTheme.ocean, const Color(0xFF00B4D8)),
+          ],
+        ),
       ),
     );
   }
@@ -155,40 +130,100 @@ class _ThemeSelector extends StatelessWidget {
     final theme = Theme.of(context);
     final isSelected = themeProvider.currentTheme == mode;
 
-    return GestureDetector(
-      onTap: () => themeProvider.setTheme(mode),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? color.withValues(alpha: 0.15)
-              : theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => themeProvider.setTheme(mode),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
             color: isSelected
-                ? color
-                : theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-            width: isSelected ? 2 : 1,
+                ? color.withValues(alpha: 0.15)
+                : theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isSelected
+                  ? color
+                  : theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+              width: isSelected ? 2 : 1,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                color: isSelected ? color : theme.colorScheme.onSurfaceVariant,
+                size: 20,
+              ),
+              const SizedBox(width: 6),
+              Text(
+                title,
+                style: context.textStyles.labelLarge?.copyWith(
+                  color: isSelected ? color : theme.colorScheme.onSurfaceVariant,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                ),
+              ),
+            ],
           ),
         ),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              color: isSelected ? color : theme.colorScheme.onSurfaceVariant,
-              size: 28,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: context.textStyles.labelLarge?.copyWith(
-                color: isSelected ? color : theme.colorScheme.onSurfaceVariant,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+      ),
+    );
+  }
+}
+
+class _PremiumFeaturesSection extends StatelessWidget {
+  const _PremiumFeaturesSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return DRCard(
+      padding: EdgeInsets.zero,
+      child: Column(
+        children: [
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: DRListTile(
+              title: 'Focus Mode',
+              showChevron: true,
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.timer_outlined,
+                  color: theme.colorScheme.primary,
+                ),
               ),
+              onTap: () => context.push('/focus'),
             ),
-          ],
-        ),
+          ),
+          Divider(
+            height: 1,
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
+          ),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: DRListTile(
+              title: 'Breathing Exercise',
+              showChevron: true,
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.secondaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(Icons.air, color: theme.colorScheme.secondary),
+              ),
+              onTap: () => context.push('/breathing'),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -270,52 +305,73 @@ class _NotificationSectionState extends State<_NotificationSection> {
     final notif = context.read<NotificationService>();
     final theme = Theme.of(context);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3)),
-      ),
+    return DRCard(
+      padding: EdgeInsets.zero,
       child: Column(
         children: [
-          SwitchListTile(
-            title: const Text('Daily Reminders'),
-            subtitle: const Text('Get notified to complete your check-in'),
-            value: _remindersEnabled,
-            onChanged: _isLoading ? null : _toggleReminders,
-            secondary: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.secondaryContainer,
-                borderRadius: BorderRadius.circular(10),
+          MouseRegion(
+            cursor:
+                _isLoading ? SystemMouseCursors.basic : SystemMouseCursors.click,
+            child: DRListTile(
+              title: 'Daily Reminders',
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.secondaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.notifications_active,
+                  color: theme.colorScheme.onSecondaryContainer,
+                ),
               ),
-              child: Icon(Icons.notifications_active,
-                  color: theme.colorScheme.onSecondaryContainer),
+              trailing: Switch.adaptive(
+                value: _remindersEnabled,
+                onChanged: _isLoading ? null : _toggleReminders,
+              ),
+              onTap: _isLoading ? null : () => _toggleReminders(!_remindersEnabled),
             ),
           ),
           Divider(
-              height: 1,
-              indent: 60,
-              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3)),
-          ListTile(
-            title: const Text('Test Notification'),
-            subtitle: const Text('Send a test alert in 1 min'),
-            trailing: const Icon(Icons.chevron_right),
-            enabled: _remindersEnabled,
-            onTap: () async {
-              try {
-                await notif.scheduleOneTimeTestNotificationInOneMinute();
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Test scheduled for 1 min from now')),
-                  );
-                }
-              } catch (e) {
-                debugPrint('Error: $e');
-              }
-            },
+            height: 1,
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
+          ),
+          MouseRegion(
+            cursor: _remindersEnabled
+                ? SystemMouseCursors.click
+                : SystemMouseCursors.basic,
+            child: DRListTile(
+              title: 'Test Notification',
+              showChevron: true,
+              isEnabled: _remindersEnabled,
+              onTap: _remindersEnabled
+                  ? () async {
+                      try {
+                        await notif.scheduleOneTimeTestNotificationInOneMinute();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Test scheduled for 1 min from now'),
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        debugPrint('Error: $e');
+                      }
+                    }
+                  : null,
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.notifications_outlined,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -443,33 +499,26 @@ class _DataSectionState extends State<_DataSection> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3)),
-      ),
-      child: Column(
-        children: [
-          ListTile(
-            key: const Key('settings_reset_all_data_tile'),
-            leading: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.errorContainer,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(Icons.delete_outline, color: theme.colorScheme.error),
+    return DRCard(
+      padding: EdgeInsets.zero,
+      child: MouseRegion(
+        cursor:
+            _isResetting ? SystemMouseCursors.basic : SystemMouseCursors.click,
+        child: DRListTile(
+          key: const Key('settings_reset_all_data_tile'),
+          title: 'Reset All Data',
+          isDestructive: true,
+          showChevron: true,
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.errorContainer,
+              borderRadius: BorderRadius.circular(10),
             ),
-            title: Text(
-              'Reset All Data',
-              style: TextStyle(color: theme.colorScheme.error),
-            ),
-            subtitle: const Text('Clear habits, logs, and progress'),
-            onTap: _isResetting ? null : () => _showResetDataDialog(context),
+            child: Icon(Icons.delete_outline, color: theme.colorScheme.error),
           ),
-        ],
+          onTap: _isResetting ? null : () => _showResetDataDialog(context),
+        ),
       ),
     );
   }
