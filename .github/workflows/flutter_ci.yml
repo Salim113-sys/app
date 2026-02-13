@@ -1,0 +1,67 @@
+name: Flutter CI
+
+on:
+  # Run on every push and PR so Android + iOS buildability is always checked.
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  android_checks_and_apk:
+    name: Android checks + APK (ubuntu-latest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java for Android tooling
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter (stable)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: flutter --version
+        run: flutter --version
+
+      - name: flutter pub get
+        run: flutter pub get
+
+      - name: flutter analyze
+        run: flutter analyze
+
+      - name: flutter test
+        run: flutter test
+
+      - name: flutter build apk
+        run: flutter build apk
+
+  ios_no_codesign:
+    name: iOS no-codesign build (macos-latest)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter (stable)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      # Keep macOS usage minimal: restore deps then do no-codesign iOS build.
+      - name: flutter --version
+        run: flutter --version
+
+      - name: flutter pub get
+        run: flutter pub get
+
+      - name: flutter build ios --no-codesign
+        run: flutter build ios --no-codesign
