@@ -64,15 +64,7 @@ class DRCard extends StatelessWidget {
       );
     }
 
-    // Wrap with margin if provided
-    if (margin != null) {
-      cardContent = Padding(
-        padding: margin!,
-        child: cardContent,
-      );
-    }
-
-    return Container(
+    final decoratedCard = Container(
       decoration: BoxDecoration(
         color: defaultBackgroundColor,
         borderRadius: defaultBorderRadius,
@@ -90,6 +82,15 @@ class DRCard extends StatelessWidget {
         child: cardContent,
       ),
     );
+
+    if (margin != null) {
+      return Padding(
+        padding: margin!,
+        child: decoratedCard,
+      );
+    }
+
+    return decoratedCard;
   }
 }
 
