@@ -256,23 +256,31 @@ class _HabitFormScreenState extends State<HabitFormScreen> {
               const SizedBox(height: AppSpacing.sm),
               DRCard(
                 padding: EdgeInsets.zero,
-                child: ListTile(
-                  leading: Icon(Icons.access_time, color: Theme.of(context).colorScheme.primary),
-                  title: Text(
-                    _reminderTimeMinutes == null
-                        ? 'No reminder set'
-                        : 'Reminder: ${_formatReminderTime(context, _reminderTimeMinutes!)}',
+                child: DRListTile(
+                  leading: Icon(
+                    Icons.access_time,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
+                  title: _reminderTimeMinutes == null
+                      ? 'No reminder set'
+                      : 'Reminder: ${_formatReminderTime(context, _reminderTimeMinutes!)}',
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       if (_reminderTimeMinutes != null)
                         IconButton(
                           tooltip: 'Clear',
-                          onPressed: () => setState(() => _reminderTimeMinutes = null),
-                          icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.error),
+                          onPressed: () =>
+                              setState(() => _reminderTimeMinutes = null),
+                          icon: Icon(
+                            Icons.clear,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
                         ),
-                      Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                     ],
                   ),
                   onTap: _pickReminderTime,

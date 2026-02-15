@@ -296,22 +296,26 @@ class _ProgramStatsSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: _DashboardCard(
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
+            child: DRListTile(
+              padding: EdgeInsets.zero,
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(_iconForPack(pack.iconKey), color: Theme.of(context).colorScheme.onPrimaryContainer),
+                child: Icon(
+                  _iconForPack(pack.iconKey),
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
               ),
-              title: Text(pack.name, style: context.textStyles.titleSmall?.bold),
-              subtitle: Text('$activeDays / 7 days active'),
+              title: pack.name,
+              subtitle: '$activeDays / 7 days active',
               trailing: CircularProgressIndicator(
-                 value: activeDays / 7, 
-                 strokeWidth: 4, 
-                 backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                value: activeDays / 7,
+                strokeWidth: 4,
+                backgroundColor:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
               ),
             ),
           ),

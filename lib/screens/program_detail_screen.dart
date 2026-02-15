@@ -169,13 +169,11 @@ class _ProgramDetailScreenState extends State<ProgramDetailScreen> {
                           return DRCard(
                             padding: EdgeInsets.zero,
                             borderRadius: BorderRadius.circular(12),
-                            child: SwitchListTile(
+                            child: DRListTileSwitch(
                               value: enabled,
                               onChanged: (value) => _toggleHabit(habit.id, value),
-                              title: Text(habit.name),
-                              subtitle: habit.description != null
-                                  ? Text(habit.description!)
-                                  : null,
+                              title: habit.name,
+                              subtitle: habit.description,
                             ),
                           );
                         }
@@ -849,30 +847,29 @@ void _showHydrationSettingsSheet(
                   ),
                 ),
                 const SizedBox(height: 16),
-                SwitchListTile(
+                DRListTileSwitch(
                   value: remindersEnabled,
                   onChanged: (value) {
                     setState(() => remindersEnabled = value);
                   },
-                  title: const Text('Hydration reminders'),
+                  title: 'Hydration reminders',
                 ),
                 if (remindersEnabled) ...[
                   Row(
                     children: [
                       Expanded(
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: const Text('Start time'),
-                          subtitle:
-                              Text(_formatMinutes(context, startMinutes)),
+                        child: DRListTile(
+                          padding: EdgeInsets.zero,
+                          title: 'Start time',
+                          subtitle: _formatMinutes(context, startMinutes),
                           onTap: () => pickTime(true),
                         ),
                       ),
                       Expanded(
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: const Text('End time'),
-                          subtitle: Text(_formatMinutes(context, endMinutes)),
+                        child: DRListTile(
+                          padding: EdgeInsets.zero,
+                          title: 'End time',
+                          subtitle: _formatMinutes(context, endMinutes),
                           onTap: () => pickTime(false),
                         ),
                       ),

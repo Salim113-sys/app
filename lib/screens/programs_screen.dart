@@ -22,13 +22,13 @@ class ProgramsScreen extends StatelessWidget {
           return DRCard(
             padding: EdgeInsets.zero,
             borderRadius: BorderRadius.circular(16),
-            child: ListTile(
+            child: DRListTile(
               onTap: () {
                 context.push('/programs/${pack.id}');
               },
               leading: _ProgramIcon(iconKey: pack.iconKey),
-              title: Text(pack.name),
-              subtitle: Text(pack.description),
+              title: pack.name,
+              subtitle: pack.description,
               trailing: _ActiveBadge(isActive: pack.isActive),
             ),
           );
