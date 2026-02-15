@@ -8,6 +8,7 @@ import 'package:daily_reset/providers/hydration_provider.dart';
 import 'package:daily_reset/providers/workout_provider.dart';
 import 'package:daily_reset/models/workout_models.dart';
 import 'package:go_router/go_router.dart';
+import 'package:daily_reset/components/core/components.dart';
 
 class ProgramDetailScreen extends StatefulWidget {
   final ProgramPack pack;
@@ -165,10 +166,9 @@ class _ProgramDetailScreenState extends State<ProgramDetailScreen> {
 
                         if (!isWorkoutPack) {
                           // Keep existing simple card UX for non-workout programs.
-                          return Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                          return DRCard(
+                            padding: EdgeInsets.zero,
+                            borderRadius: BorderRadius.circular(12),
                             child: SwitchListTile(
                               value: enabled,
                               onChanged: (value) => _toggleHabit(habit.id, value),
@@ -183,10 +183,9 @@ class _ProgramDetailScreenState extends State<ProgramDetailScreen> {
                         // Workout: richer card layout with metadata row and toggle.
                         final frequencyLabel = _frequencyLabel(habit);
                         final focusLabel = _focusLabel(habit);
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                        return DRCard(
+                          padding: EdgeInsets.zero,
+                          borderRadius: BorderRadius.circular(16),
                           margin: EdgeInsets.zero,
                           child: Padding(
                             padding: const EdgeInsets.all(16),
@@ -606,15 +605,13 @@ class _WorkoutRoutineCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Card(
+    return DRCard(
+      padding: EdgeInsets.zero,
       elevation: 0,
-      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-        ),
-      ),
+      backgroundColor:
+          theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+      borderRadius: BorderRadius.circular(20),
+      borderColor: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
       margin: EdgeInsets.zero,
       child: InkWell(
         borderRadius: BorderRadius.circular(20),

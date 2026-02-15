@@ -254,7 +254,8 @@ class _HabitFormScreenState extends State<HabitFormScreen> {
                 style: context.textStyles.titleMedium?.semiBold,
               ),
               const SizedBox(height: AppSpacing.sm),
-              Card(
+              DRCard(
+                padding: EdgeInsets.zero,
                 child: ListTile(
                   leading: Icon(Icons.access_time, color: Theme.of(context).colorScheme.primary),
                   title: Text(

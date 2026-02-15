@@ -34,7 +34,8 @@ class HabitsListScreen extends StatelessWidget {
                   separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.sm),
                   itemBuilder: (context, index) {
                     final habit = habitProvider.habits[index];
-                    return Card(
+                    return DRCard(
+                      padding: EdgeInsets.zero,
                       child: ListTile(
                         contentPadding: AppSpacing.paddingMd,
                         leading: CircleAvatar(

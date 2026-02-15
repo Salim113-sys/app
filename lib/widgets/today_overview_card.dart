@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:daily_reset/models/daily_log.dart';
 import 'package:daily_reset/services/streak_service.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:daily_reset/widgets/hydration_glass.dart';
 
 class TodayOverviewCard extends StatelessWidget {
@@ -29,15 +30,13 @@ class TodayOverviewCard extends StatelessWidget {
     final theme = Theme.of(context);
     final habitProgress = totalHabits == 0 ? 0.0 : (completedHabits / totalHabits).clamp(0.0, 1.0);
 
-    return Card(
+    return DRCard(
+      padding: EdgeInsets.zero,
       elevation: 0,
-      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-        side: BorderSide(
-          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-        ),
-      ),
+      backgroundColor:
+          theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+      borderRadius: BorderRadius.circular(24),
+      borderColor: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(

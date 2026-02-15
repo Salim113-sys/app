@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:daily_reset/models/daily_log.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 
 class MoodTrendChart extends StatelessWidget {
   final List<MoodLevel?> moods;
@@ -10,7 +11,8 @@ class MoodTrendChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return DRCard(
+      padding: EdgeInsets.zero,
       child: Padding(
         padding: AppSpacing.paddingMd,
         child: Column(

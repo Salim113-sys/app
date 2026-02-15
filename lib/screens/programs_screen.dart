@@ -19,10 +19,9 @@ class ProgramsScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final pack = packs[index];
 
-          return Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
+          return DRCard(
+            padding: EdgeInsets.zero,
+            borderRadius: BorderRadius.circular(16),
             child: ListTile(
               onTap: () {
                 context.push('/programs/${pack.id}');

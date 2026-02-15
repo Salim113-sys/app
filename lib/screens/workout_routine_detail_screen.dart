@@ -3,6 +3,7 @@ import 'package:daily_reset/providers/workout_provider.dart';
 import 'package:daily_reset/widgets/exercise_image.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_reset/widgets/program_hero_image.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -244,15 +245,12 @@ class _ExerciseCard extends StatelessWidget {
       secondaryLabel = '• ${step.recommendedSeconds} sec';
     }
 
-    return Card(
+    return DRCard(
+      padding: EdgeInsets.zero,
       elevation: 0,
-      color: theme.colorScheme.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(
-          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-        ),
-      ),
+      backgroundColor: theme.colorScheme.surface,
+      borderRadius: BorderRadius.circular(16),
+      borderColor: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
       margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(12),

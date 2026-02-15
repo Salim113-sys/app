@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:daily_reset/providers/hydration_provider.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:daily_reset/widgets/water_bottle_fill.dart';
 
 class HydrationControlsCard extends StatelessWidget {
@@ -31,15 +32,13 @@ class HydrationControlsCard extends StatelessWidget {
     // Default quick add buttons: 250ml, 500ml, 1000ml (1L)
     final quickAdds = [250, 500, 1000];
 
-    return Card(
+    return DRCard(
+      padding: EdgeInsets.zero,
       elevation: 0,
-      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.lg),
-        side: BorderSide(
-          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-        ),
-      ),
+      backgroundColor:
+          theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+      borderRadius: BorderRadius.circular(AppRadius.lg),
+      borderColor: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
       child: Padding(
         padding: AppSpacing.paddingMd,
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:daily_reset/models/habit.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 
 class StatCard extends StatelessWidget {
   final Habit habit;
@@ -16,7 +17,8 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return DRCard(
+      padding: EdgeInsets.zero,
       child: Padding(
         padding: AppSpacing.paddingMd,
         child: Column(
