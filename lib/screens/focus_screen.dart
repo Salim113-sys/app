@@ -90,9 +90,9 @@ class FocusScreen extends StatelessWidget {
                  const SizedBox(height: AppSpacing.xl),
                  Text('Session Complete!', style: theme.textTheme.headlineMedium),
                  const SizedBox(height: AppSpacing.lg),
-                 ElevatedButton(
+                 DRButtonPrimary(
+                   label: 'Done',
                    onPressed: () => focusProvider.stop(),
-                   child: const Text('Done'),
                  ),
               ] else ...[
                  // Running or Paused
