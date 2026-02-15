@@ -526,23 +526,19 @@ class _DataSectionState extends State<_DataSection> {
           'This will permanently delete all your tracking history and habits. This action cannot be undone.',
         ),
         actions: [
-          TextButton(
+          DRButtonGhost(
+            label: 'Cancel',
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          DRButtonDestructive(
             key: const Key('settings_confirm_reset_button'),
+            label: 'Reset Data',
             onPressed: _isResetting
                 ? null
                 : () async {
                     Navigator.pop(context); // Close dialog
                     await factoryResetApp();
                   },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
-            ),
-            child: const Text('Reset Data'),
           ),
         ],
       ),

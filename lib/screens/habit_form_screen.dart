@@ -289,15 +289,11 @@ class _HabitFormScreenState extends State<HabitFormScreen> {
               const SizedBox(height: AppSpacing.xl),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: DRButtonPrimary(
+                  isFullWidth: true,
+                  label: isEditing ? 'Update habit' : 'Save habit',
+                  isLoading: _isLoading,
                   onPressed: _isLoading ? null : _saveHabit,
-                  child: _isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text(isEditing ? 'Update habit' : 'Save habit'),
                 ),
               ),
             ],

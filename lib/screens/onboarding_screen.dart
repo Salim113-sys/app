@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:daily_reset/theme.dart';
 import 'package:daily_reset/services/storage_service.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:go_router/go_router.dart';
 import 'package:daily_reset/widgets/program_hero_image.dart';
 
@@ -69,27 +70,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   if (_currentPage == _pages.length - 1)
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
+                      child: DRButtonPrimary(
+                        label: 'Get Started',
+                        isFullWidth: true,
                         onPressed: () => _completeOnboarding(context),
-                        child: const Text('Get Started'),
                       ),
                     )
                   else
                     Row(
                       children: [
-                        TextButton(
+                        DRButtonGhost(
+                          label: 'Skip',
                           onPressed: () => _completeOnboarding(context),
-                          child: const Text('Skip'),
                         ),
                         const Spacer(),
-                        ElevatedButton(
+                        DRButtonPrimary(
+                          label: 'Next',
                           onPressed: () {
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             );
                           },
-                          child: const Text('Next'),
                         ),
                       ],
                     ),
