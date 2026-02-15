@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:daily_reset/providers/habit_provider.dart';
 import 'package:daily_reset/providers/daily_log_provider.dart';
 import 'package:daily_reset/models/program_pack.dart';
@@ -21,12 +22,7 @@ class StatsScreen extends StatelessWidget {
     final workoutProvider = context.watch<WorkoutProvider>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Your Progress',
-          style: context.textStyles.headlineSmall?.semiBold,
-        ),
-      ),
+      appBar: const DRAppBar(title: 'Your Progress'),
       body: habitProvider.habits.isEmpty
           ? const EmptyState(
               icon: Icons.show_chart,

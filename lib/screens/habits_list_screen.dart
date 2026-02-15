@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:daily_reset/providers/habit_provider.dart';
 import 'package:daily_reset/widgets/empty_state.dart';
 import 'package:go_router/go_router.dart';
@@ -13,12 +14,7 @@ class HabitsListScreen extends StatelessWidget {
     final habitProvider = context.watch<HabitProvider>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Manage Habits',
-          style: context.textStyles.headlineSmall?.semiBold,
-        ),
-      ),
+      appBar: DRAppBarWithBack(title: 'Manage Habits'),
       body: habitProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : habitProvider.habits.isEmpty

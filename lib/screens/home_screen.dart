@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:daily_reset/providers/habit_provider.dart';
 import 'package:daily_reset/providers/daily_log_provider.dart';
 import 'package:daily_reset/providers/streak_provider.dart';
@@ -44,12 +45,7 @@ class HomeScreen extends StatelessWidget {
     final packs = ProgramPacksRepository.defaultPacks;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Today\'s Reset',
-          style: context.textStyles.headlineSmall?.semiBold,
-        ),
-      ),
+      appBar: const DRAppBar(title: 'Today\'s Reset'),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: AppSpacing.paddingLg,

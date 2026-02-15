@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
@@ -7,12 +8,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Privacy Policy',
-          style: context.textStyles.headlineSmall?.semiBold,
-        ),
-      ),
+      appBar: DRAppBarWithBack(title: 'Privacy Policy'),
       body: SingleChildScrollView(
         padding: AppSpacing.paddingLg,
         child: Column(

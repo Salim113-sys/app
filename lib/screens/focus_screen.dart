@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:daily_reset/providers/focus_provider.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 
 class FocusScreen extends StatelessWidget {
   const FocusScreen({super.key});
@@ -19,41 +20,36 @@ class FocusScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
-      appBar: AppBar(
-        title: const Text('Focus Mode'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            // Confirm exit if running
-            if (focusProvider.state == FocusState.running) {
-              showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                  title: const Text('Quit Session?'),
-                  content: const Text('Your focus progress will be lost.'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(ctx),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        focusProvider.stop();
-                        Navigator.pop(ctx);
-                        context.pop();
-                      },
-                      child: const Text('Quit'),
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              context.pop();
-            }
-          },
-        ),
+      appBar: DRAppBarWithClose(
+        title: 'Focus Mode',
+        onBackPressed: () {
+          // Confirm exit if running
+          if (focusProvider.state == FocusState.running) {
+            showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                title: const Text('Quit Session?'),
+                content: const Text('Your focus progress will be lost.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      focusProvider.stop();
+                      Navigator.pop(ctx);
+                      context.pop();
+                    },
+                    child: const Text('Quit'),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            context.pop();
+          }
+        },
       ),
       body: SafeArea(
         child: Padding(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:daily_reset/theme.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:daily_reset/models/habit.dart';
 import 'package:daily_reset/models/program_pack.dart';
 import 'package:daily_reset/providers/habit_provider.dart';
@@ -72,12 +73,7 @@ class _HabitFormScreenState extends State<HabitFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          isEditing ? 'Edit Habit' : 'Add Habit',
-          style: context.textStyles.headlineSmall?.semiBold,
-        ),
-      ),
+      appBar: DRAppBarWithBack(title: isEditing ? 'Edit Habit' : 'Add Habit'),
       body: SingleChildScrollView(
         padding: AppSpacing.paddingLg,
         child: Form(

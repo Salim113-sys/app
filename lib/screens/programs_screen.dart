@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:daily_reset/models/program_pack.dart';
+import 'package:daily_reset/components/core/components.dart';
 
 class ProgramsScreen extends StatelessWidget {
   const ProgramsScreen({super.key});
@@ -10,9 +11,7 @@ class ProgramsScreen extends StatelessWidget {
     final packs = ProgramPacksRepository.defaultPacks;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Programs'),
-      ),
+      appBar: const DRAppBar(title: 'Programs'),
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         itemCount: packs.length,

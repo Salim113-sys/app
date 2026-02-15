@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:daily_reset/components/core/components.dart';
 
 class BreathingScreen extends StatefulWidget {
   const BreathingScreen({super.key});
@@ -55,15 +55,7 @@ class _BreathingScreenState extends State<BreathingScreen> with SingleTickerProv
     
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
-      appBar: AppBar(
-        title: const Text('Breathe'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => context.pop(),
-        ),
-      ),
+      appBar: DRAppBarWithClose(title: 'Breathe'),
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,

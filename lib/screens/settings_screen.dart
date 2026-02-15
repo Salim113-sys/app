@@ -22,14 +22,7 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: Text(
-          'Settings',
-          style: context.textStyles.headlineSmall?.semiBold,
-        ),
-        centerTitle: false,
-      ),
+      appBar: const DRAppBar(title: 'Settings'),
       body: SingleChildScrollView(
         child: Center(
           child: ConstrainedBox(
