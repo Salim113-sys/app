@@ -31,17 +31,19 @@ class FocusScreen extends StatelessWidget {
                 title: const Text('Quit Session?'),
                 content: const Text('Your focus progress will be lost.'),
                 actions: [
-                  TextButton(
+                  DRButtonGhost(
+                    label: 'Cancel',
+                    size: DRButtonSize.small,
                     onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Cancel'),
                   ),
-                  TextButton(
+                  DRButtonDestructive(
+                    label: 'Quit',
+                    size: DRButtonSize.small,
                     onPressed: () {
                       focusProvider.stop();
                       Navigator.pop(ctx);
                       context.pop();
                     },
-                    child: const Text('Quit'),
                   ),
                 ],
               ),

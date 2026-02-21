@@ -22,10 +22,10 @@ class HabitsListScreen extends StatelessWidget {
                   icon: Icons.self_improvement,
                   title: 'No habits yet',
                   description: 'Start building better habits today!',
-                  action: ElevatedButton.icon(
+                  action: DRButtonPrimary(
+                    label: 'Add Your First Habit',
                     onPressed: () => context.push('/habits/add'),
-                    icon: const Icon(Icons.add),
-                    label: const Text('Add Your First Habit'),
+                    icon: Icons.add,
                   ),
                 )
               : ListView.separated(
