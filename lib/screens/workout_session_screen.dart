@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:daily_reset/models/workout_models.dart';
 import 'package:daily_reset/providers/workout_provider.dart';
+import 'package:daily_reset/components/core/components.dart';
 import 'package:daily_reset/widgets/exercise_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -311,9 +312,10 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            TextButton(
+            DRButtonGhost(
+              label: 'End session early',
+              size: DRButtonSize.small,
               onPressed: _finishSession,
-              child: const Text('End session early'),
             ),
           ],
         ),
