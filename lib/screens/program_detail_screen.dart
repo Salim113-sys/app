@@ -425,11 +425,12 @@ class _HydrationMiniAppSection extends StatelessWidget {
           spacing: 12,
           children: [
             for (final size in settings.glassSizeOptionsMl)
-              ElevatedButton(
+              DRButtonPrimary(
+                label: '+ $size ml',
+                size: DRButtonSize.small,
                 onPressed: () {
                   hydrationProvider.logDrink(size, source: 'quick');
                 },
-                child: Text('+ $size ml'),
               ),
             OutlinedButton.icon(
               onPressed: () async {
@@ -891,7 +892,9 @@ void _showHydrationSettingsSheet(
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: DRButtonPrimary(
+                    label: 'Save',
+                    isFullWidth: true,
                     onPressed: () async {
                       final goal = int.tryParse(goalController.text.trim()) ??
                           settings.dailyGoalMl;
@@ -908,7 +911,6 @@ void _showHydrationSettingsSheet(
                         Navigator.of(context).pop();
                       }
                     },
-                    child: const Text('Save'),
                   ),
                 ),
               ],
