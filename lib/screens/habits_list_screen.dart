@@ -163,17 +163,15 @@ class HabitsListScreen extends StatelessWidget {
         title: const Text('Delete Habit'),
         content: Text('Are you sure you want to delete "$habitName"? This action cannot be undone.'),
         actions: [
-          TextButton(
+          DRButtonGhost(
+            label: 'Cancel',
+            size: DRButtonSize.small,
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          DRButtonDestructive(
+            label: 'Delete',
+            size: DRButtonSize.small,
             onPressed: () => Navigator.of(context).pop(true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
-            ),
-            child: const Text('Delete'),
           ),
         ],
       ),
