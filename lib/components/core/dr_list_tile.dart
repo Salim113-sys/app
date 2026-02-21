@@ -10,8 +10,10 @@ import '../../design_system/design_system.dart';
 class DRListTile extends StatelessWidget {
   const DRListTile({
     super.key,
-    required this.title,
+    this.title = '',
     this.subtitle,
+    this.titleWidget,
+    this.subtitleWidget,
     this.leading,
     this.trailing,
     this.onTap,
@@ -26,6 +28,8 @@ class DRListTile extends StatelessWidget {
 
   final String title;
   final String? subtitle;
+  final Widget? titleWidget;
+  final Widget? subtitleWidget;
   final Widget? leading;
   final Widget? trailing;
   final VoidCallback? onTap;
@@ -39,6 +43,11 @@ class DRListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    assert(
+      titleWidget != null || title.isNotEmpty,
+      'Either title or titleWidget must be provided.',
+    );
+
     final theme = Theme.of(context);
     final brightness = theme.brightness;
 
@@ -83,21 +92,43 @@ class DRListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  title,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: titleColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                if (subtitle != null) ...[
-                  const SizedBox(height: 2),
+                if (titleWidget != null)
+                  DefaultTextStyle.merge(
+                    style: theme.textTheme.titleMedium?.copyWith(
+                          color: titleColor,
+                          fontWeight: FontWeight.w500,
+                        ) ??
+                        TextStyle(
+                          color: titleColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    child: titleWidget!,
+                  )
+                else
                   Text(
-                    subtitle!,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: subtitleColor,
+                    title,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: titleColor,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
+                if (subtitle != null || subtitleWidget != null) ...[
+                  const SizedBox(height: 2),
+                  if (subtitleWidget != null)
+                    DefaultTextStyle.merge(
+                      style: theme.textTheme.bodySmall?.copyWith(
+                            color: subtitleColor,
+                          ) ??
+                          TextStyle(color: subtitleColor),
+                      child: subtitleWidget!,
+                    )
+                  else
+                    Text(
+                      subtitle!,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: subtitleColor,
+                      ),
+                    ),
                 ],
               ],
             ),

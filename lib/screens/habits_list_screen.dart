@@ -36,8 +36,8 @@ class HabitsListScreen extends StatelessWidget {
                     final habit = habitProvider.habits[index];
                     return DRCard(
                       padding: EdgeInsets.zero,
-                      child: ListTile(
-                        contentPadding: AppSpacing.paddingMd,
+                      child: DRListTile(
+                        padding: AppSpacing.paddingMd,
                         leading: CircleAvatar(
                           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                           child: Text(
@@ -45,7 +45,7 @@ class HabitsListScreen extends StatelessWidget {
                             style: const TextStyle(fontSize: 24),
                           ),
                         ),
-                        title: Row(
+                        titleWidget: Row(
                           children: [
                             Expanded(
                               child: Text(
@@ -69,7 +69,7 @@ class HabitsListScreen extends StatelessWidget {
                             ],
                           ],
                         ),
-                        subtitle: Column(
+                        subtitleWidget: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                              Text(
